@@ -1,0 +1,288 @@
+[
+  {
+    "scenario": "首次声呐观测",
+    "input": "根据首次巡检的声呐观测，判断交叉点管段是否裸露，并保存判读。",
+    "tool_calls": [
+      {
+        "tool": "查询观测",
+        "input": {
+          "observation_id": "O1"
+        },
+        "output": {
+          "observation": {
+            "id": "O1",
+            "survey": "S1",
+            "sensor_kind": "侧扫声呐",
+            "target": "T1",
+            "instant": "2026-01-10T09:00:00Z",
+            "property": "形态",
+            "result": "线状回波",
+            "evidence": "S17 / ping 120–145"
+          },
+          "identities": [
+            {
+              "identity_id": "I1",
+              "identity_status": "候选",
+              "identity_basis": "与参考线路相交",
+              "segment": "P_X",
+              "asset": "P01",
+              "asset_kind": "管道",
+              "route_version": "v1",
+              "startM": 40.0,
+              "endM": 60.0
+            },
+            {
+              "identity_id": "I2",
+              "identity_status": "候选",
+              "identity_basis": "与参考线路相交",
+              "segment": "C_X",
+              "asset": "C01",
+              "asset_kind": "海缆",
+              "route_version": "v1",
+              "startM": 40.0,
+              "endM": 60.0
+            }
+          ]
+        }
+      },
+      {
+        "tool": "提交判读",
+        "input": {
+          "identity_id": "I1",
+          "phenomenon": "裸露",
+          "status": "疑似",
+          "basis": "线状回波；与参考线路相交。候选区段为 P_X、C_X。"
+        },
+        "output": {
+          "written": true,
+          "finding_id": "F-8db4733cbbc0487a9770e2c78034895b",
+          "validation": "SHACL 校验通过"
+        }
+      }
+    ],
+    "result": {
+      "conclusion": "交叉点管段疑似裸露。声呐目标身份仍有歧义。",
+      "status": "疑似",
+      "subject": {
+        "identity_id": "I1",
+        "identity_status": "候选",
+        "identity_basis": "与参考线路相交",
+        "segment": "P_X",
+        "asset": "P01",
+        "asset_kind": "管道",
+        "route_version": "v1",
+        "startM": 40.0,
+        "endM": 60.0
+      },
+      "basis": "线状回波；与参考线路相交。候选区段为 P_X、C_X。",
+      "observation_id": "O1",
+      "evidence": "S17 / ping 120–145",
+      "identities": [
+        {
+          "identity_id": "I1",
+          "identity_status": "候选",
+          "identity_basis": "与参考线路相交",
+          "segment": "P_X",
+          "asset": "P01",
+          "asset_kind": "管道",
+          "route_version": "v1",
+          "startM": 40.0,
+          "endM": 60.0
+        },
+        {
+          "identity_id": "I2",
+          "identity_status": "候选",
+          "identity_basis": "与参考线路相交",
+          "segment": "C_X",
+          "asset": "C01",
+          "asset_kind": "海缆",
+          "route_version": "v1",
+          "startM": 40.0,
+          "endM": 60.0
+        }
+      ],
+      "receipt": {
+        "written": true,
+        "finding_id": "F-8db4733cbbc0487a9770e2c78034895b",
+        "validation": "SHACL 校验通过"
+      }
+    },
+    "finding_count_before": 4,
+    "finding_count_after": 5,
+    "new_findings": [
+      {
+        "id": "F-8db4733cbbc0487a9770e2c78034895b",
+        "identity": "I1",
+        "phenomenon": "裸露",
+        "status": "疑似",
+        "basis": "线状回波；与参考线路相交。候选区段为 P_X、C_X。"
+      }
+    ]
+  },
+  {
+    "scenario": "第二次视频观测",
+    "input": "根据第二次巡检的视频观测 O2，判断交叉点管段是否裸露，并保存判读。",
+    "tool_calls": [
+      {
+        "tool": "查询观测",
+        "input": {
+          "observation_id": "O2"
+        },
+        "output": {
+          "observation": {
+            "id": "O2",
+            "survey": "S2",
+            "sensor_kind": "摄像机",
+            "target": "T1",
+            "instant": "2026-02-10T09:00:00Z",
+            "property": "外表面可见性",
+            "result": "可见连续管体及识别标记",
+            "evidence": "V08 / 12–18 s"
+          },
+          "identities": [
+            {
+              "identity_id": "I3",
+              "identity_status": "确认",
+              "identity_basis": "管体标记与模拟台账吻合",
+              "segment": "P_X",
+              "asset": "P01",
+              "asset_kind": "管道",
+              "route_version": "v1",
+              "startM": 40.0,
+              "endM": 60.0
+            }
+          ]
+        }
+      },
+      {
+        "tool": "提交判读",
+        "input": {
+          "identity_id": "I3",
+          "phenomenon": "裸露",
+          "status": "确认",
+          "basis": "可见连续管体及识别标记；管体标记与模拟台账吻合。结论限于影像可见部分。"
+        },
+        "output": {
+          "written": true,
+          "finding_id": "F-93d339b156a54384beda076215d6cb92",
+          "validation": "SHACL 校验通过"
+        }
+      }
+    ],
+    "result": {
+      "conclusion": "该区段影像可见部分确认存在局部裸露。",
+      "status": "确认",
+      "subject": {
+        "identity_id": "I3",
+        "identity_status": "确认",
+        "identity_basis": "管体标记与模拟台账吻合",
+        "segment": "P_X",
+        "asset": "P01",
+        "asset_kind": "管道",
+        "route_version": "v1",
+        "startM": 40.0,
+        "endM": 60.0
+      },
+      "basis": "可见连续管体及识别标记；管体标记与模拟台账吻合。结论限于影像可见部分。",
+      "observation_id": "O2",
+      "evidence": "V08 / 12–18 s",
+      "identities": [
+        {
+          "identity_id": "I3",
+          "identity_status": "确认",
+          "identity_basis": "管体标记与模拟台账吻合",
+          "segment": "P_X",
+          "asset": "P01",
+          "asset_kind": "管道",
+          "route_version": "v1",
+          "startM": 40.0,
+          "endM": 60.0
+        }
+      ],
+      "receipt": {
+        "written": true,
+        "finding_id": "F-93d339b156a54384beda076215d6cb92",
+        "validation": "SHACL 校验通过"
+      }
+    },
+    "finding_count_before": 4,
+    "finding_count_after": 5,
+    "new_findings": [
+      {
+        "id": "F-93d339b156a54384beda076215d6cb92",
+        "identity": "I3",
+        "phenomenon": "裸露",
+        "status": "确认",
+        "basis": "可见连续管体及识别标记；管体标记与模拟台账吻合。结论限于影像可见部分。"
+      }
+    ]
+  },
+  {
+    "scenario": "强行误确认",
+    "input": {
+      "identity_id": "I1",
+      "phenomenon": "裸露",
+      "status": "确认",
+      "basis": "线状回波"
+    },
+    "tool_calls": [
+      {
+        "tool": "提交判读",
+        "input": {
+          "identity_id": "I1",
+          "phenomenon": "裸露",
+          "status": "确认",
+          "basis": "线状回波"
+        },
+        "output": {
+          "written": false,
+          "reason": "I1 的身份状态为候选，确认判读要求身份已确认。",
+          "validation_report": "Validation Report\nConforms: False\nResults (1):\nConstraint Violation in OrConstraintComponent (http://www.w3.org/ns/shacl#OrConstraintComponent):\n\tSeverity: sh:Violation\n\tSource Shape: :ConfirmedShape\n\tFocus Node: :F-2804058476d3419e8642ae4a67003374\n\tValue Node: :F-2804058476d3419e8642ae4a67003374\n\tMessage: Node :F-2804058476d3419e8642ae4a67003374 must conform to one or more shapes in [ sh:not [ sh:property [ sh:hasValue Literal(\"确认\", datatype=xsd:string) ; sh:path :Finding_status ] ] ] , [ sh:property [ sh:hasValue Literal(\"确认\", datatype=xsd:string) ; sh:path ( :Finding_identity :Identity_status ) ], [ sh:minCount Literal(\"1\", datatype=xsd:integer) ; sh:path ( :Finding_identity :Identity_observation :Observation_evidence ) ; sh:pattern Literal(\"\\S\") ], [ sh:path :Finding_basis ; sh:pattern Literal(\"\\S\") ] ]\n"
+        }
+      }
+    ],
+    "result": {
+      "receipt": {
+        "written": false,
+        "reason": "I1 的身份状态为候选，确认判读要求身份已确认。",
+        "validation_report": "Validation Report\nConforms: False\nResults (1):\nConstraint Violation in OrConstraintComponent (http://www.w3.org/ns/shacl#OrConstraintComponent):\n\tSeverity: sh:Violation\n\tSource Shape: :ConfirmedShape\n\tFocus Node: :F-2804058476d3419e8642ae4a67003374\n\tValue Node: :F-2804058476d3419e8642ae4a67003374\n\tMessage: Node :F-2804058476d3419e8642ae4a67003374 must conform to one or more shapes in [ sh:not [ sh:property [ sh:hasValue Literal(\"确认\", datatype=xsd:string) ; sh:path :Finding_status ] ] ] , [ sh:property [ sh:hasValue Literal(\"确认\", datatype=xsd:string) ; sh:path ( :Finding_identity :Identity_status ) ], [ sh:minCount Literal(\"1\", datatype=xsd:integer) ; sh:path ( :Finding_identity :Identity_observation :Observation_evidence ) ; sh:pattern Literal(\"\\S\") ], [ sh:path :Finding_basis ; sh:pattern Literal(\"\\S\") ] ]\n"
+      }
+    },
+    "finding_count_before": 4,
+    "finding_count_after": 4,
+    "new_findings": []
+  },
+  {
+    "scenario": "非法状态",
+    "input": {
+      "identity_id": "I3",
+      "phenomenon": "裸露",
+      "status": "已确认",
+      "basis": "外表面可见"
+    },
+    "tool_calls": [
+      {
+        "tool": "提交判读",
+        "input": {
+          "identity_id": "I3",
+          "phenomenon": "裸露",
+          "status": "已确认",
+          "basis": "外表面可见"
+        },
+        "output": {
+          "written": false,
+          "reason": "判读状态只允许：疑似、确认、证据不足。"
+        }
+      }
+    ],
+    "result": {
+      "receipt": {
+        "written": false,
+        "reason": "判读状态只允许：疑似、确认、证据不足。"
+      }
+    },
+    "finding_count_before": 4,
+    "finding_count_after": 4,
+    "new_findings": []
+  }
+]
