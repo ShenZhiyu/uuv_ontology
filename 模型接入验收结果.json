@@ -1,0 +1,1259 @@
+{
+  "scripted": {
+    "mode": "scripted",
+    "runs": [
+      {
+        "scenario": "复检录像改写",
+        "input": "复检录像里，交叉处那段管子有没有露出来？把结果存一下。",
+        "tool_calls": [
+          {
+            "tool": "search_observations",
+            "input": {
+              "survey_number": 2,
+              "sensor_kind": "摄像机",
+              "segment_id": null,
+              "target_keyword": "交叉",
+              "asset_kind": "管道"
+            },
+            "output": {
+              "observations": [
+                {
+                  "observation_id": "O2",
+                  "survey_id": "S2",
+                  "survey_number": 2,
+                  "survey_day": "2026-02-10",
+                  "sensor_kind": "摄像机",
+                  "target_label": "交叉点线状特征"
+                }
+              ],
+              "truncated": false
+            }
+          },
+          {
+            "tool": "query_observation",
+            "input": {
+              "observation_id": "O2"
+            },
+            "output": {
+              "observation": {
+                "id": "O2",
+                "survey": "S2",
+                "sensor_kind": "摄像机",
+                "target": "T1",
+                "instant": "2026-02-10T09:00:00Z",
+                "property": "外表面可见性",
+                "result": "可见连续管体及识别标记",
+                "evidence": "V08 / 12–18 s"
+              },
+              "identities": [
+                {
+                  "identity_id": "I3",
+                  "identity_status": "确认",
+                  "identity_basis": "管体标记与模拟台账吻合",
+                  "segment": "P_X",
+                  "asset": "P01",
+                  "asset_kind": "管道",
+                  "route_version": "v1",
+                  "startM": 40.0,
+                  "endM": 60.0
+                }
+              ]
+            }
+          },
+          {
+            "tool": "submit_finding",
+            "input": {
+              "identity_id": "I3",
+              "phenomenon": "裸露",
+              "status": "确认",
+              "basis": "可见连续管体及识别标记。"
+            },
+            "output": {
+              "staged": true,
+              "written": false
+            }
+          },
+          {
+            "tool": "commit_finding",
+            "input": {
+              "identity_id": "I3",
+              "phenomenon": "裸露",
+              "status": "确认",
+              "basis": "可见连续管体及识别标记。"
+            },
+            "output": {
+              "written": true,
+              "finding_id": "F-a0063ecbfc5e44139b0e076dfb694671",
+              "validation": "SHACL 校验通过"
+            }
+          }
+        ],
+        "result": {
+          "action": "save",
+          "conclusion": "影像可见部分确认局部裸露。",
+          "phenomenon": "裸露",
+          "status": "确认",
+          "basis": "可见连续管体及识别标记。",
+          "subject": {
+            "identity_id": "I3",
+            "identity_status": "确认",
+            "identity_basis": "管体标记与模拟台账吻合",
+            "segment": "P_X",
+            "asset": "P01",
+            "asset_kind": "管道",
+            "route_version": "v1",
+            "startM": 40.0,
+            "endM": 60.0
+          },
+          "observation_id": "O2",
+          "evidence": "V08 / 12–18 s",
+          "identities": [
+            {
+              "identity_id": "I3",
+              "identity_status": "确认",
+              "identity_basis": "管体标记与模拟台账吻合",
+              "segment": "P_X",
+              "asset": "P01",
+              "asset_kind": "管道",
+              "route_version": "v1",
+              "startM": 40.0,
+              "endM": 60.0
+            }
+          ],
+          "receipt": {
+            "written": true,
+            "finding_id": "F-a0063ecbfc5e44139b0e076dfb694671",
+            "validation": "SHACL 校验通过"
+          }
+        },
+        "finding_count_before": 4,
+        "finding_count_after": 5,
+        "new_findings": [
+          {
+            "id": "F-a0063ecbfc5e44139b0e076dfb694671",
+            "identity": "I3",
+            "phenomenon": "裸露",
+            "status": "确认",
+            "basis": "可见连续管体及识别标记。"
+          }
+        ]
+      },
+      {
+        "scenario": "首次声呐改写",
+        "input": "第一次声呐扫过交叉处时，能看出管子露出来了吗？把初判记下。",
+        "tool_calls": [
+          {
+            "tool": "search_observations",
+            "input": {
+              "survey_number": 1,
+              "sensor_kind": "声呐",
+              "segment_id": null,
+              "target_keyword": "交叉",
+              "asset_kind": "管道"
+            },
+            "output": {
+              "observations": [
+                {
+                  "observation_id": "O1",
+                  "survey_id": "S1",
+                  "survey_number": 1,
+                  "survey_day": "2026-01-10",
+                  "sensor_kind": "侧扫声呐",
+                  "target_label": "交叉点线状特征"
+                }
+              ],
+              "truncated": false
+            }
+          },
+          {
+            "tool": "query_observation",
+            "input": {
+              "observation_id": "O1"
+            },
+            "output": {
+              "observation": {
+                "id": "O1",
+                "survey": "S1",
+                "sensor_kind": "侧扫声呐",
+                "target": "T1",
+                "instant": "2026-01-10T09:00:00Z",
+                "property": "形态",
+                "result": "线状回波",
+                "evidence": "S17 / ping 120–145"
+              },
+              "identities": [
+                {
+                  "identity_id": "I1",
+                  "identity_status": "候选",
+                  "identity_basis": "与参考线路相交",
+                  "segment": "P_X",
+                  "asset": "P01",
+                  "asset_kind": "管道",
+                  "route_version": "v1",
+                  "startM": 40.0,
+                  "endM": 60.0
+                },
+                {
+                  "identity_id": "I2",
+                  "identity_status": "候选",
+                  "identity_basis": "与参考线路相交",
+                  "segment": "C_X",
+                  "asset": "C01",
+                  "asset_kind": "海缆",
+                  "route_version": "v1",
+                  "startM": 40.0,
+                  "endM": 60.0
+                }
+              ]
+            }
+          },
+          {
+            "tool": "commit_finding",
+            "input": {
+              "identity_id": "I1",
+              "phenomenon": "裸露",
+              "status": "疑似",
+              "basis": "线状回波有 P_X、C_X 两个候选。"
+            },
+            "output": {
+              "written": true,
+              "finding_id": "F-3ee7e1880dc0491e8f4b5234edcd350f",
+              "validation": "SHACL 校验通过"
+            }
+          }
+        ],
+        "result": {
+          "action": "save",
+          "conclusion": "管段疑似裸露，目标身份仍有歧义。",
+          "phenomenon": "裸露",
+          "status": "疑似",
+          "basis": "线状回波有 P_X、C_X 两个候选。",
+          "subject": {
+            "identity_id": "I1",
+            "identity_status": "候选",
+            "identity_basis": "与参考线路相交",
+            "segment": "P_X",
+            "asset": "P01",
+            "asset_kind": "管道",
+            "route_version": "v1",
+            "startM": 40.0,
+            "endM": 60.0
+          },
+          "observation_id": "O1",
+          "evidence": "S17 / ping 120–145",
+          "identities": [
+            {
+              "identity_id": "I1",
+              "identity_status": "候选",
+              "identity_basis": "与参考线路相交",
+              "segment": "P_X",
+              "asset": "P01",
+              "asset_kind": "管道",
+              "route_version": "v1",
+              "startM": 40.0,
+              "endM": 60.0
+            },
+            {
+              "identity_id": "I2",
+              "identity_status": "候选",
+              "identity_basis": "与参考线路相交",
+              "segment": "C_X",
+              "asset": "C01",
+              "asset_kind": "海缆",
+              "route_version": "v1",
+              "startM": 40.0,
+              "endM": 60.0
+            }
+          ],
+          "receipt": {
+            "written": true,
+            "finding_id": "F-3ee7e1880dc0491e8f4b5234edcd350f",
+            "validation": "SHACL 校验通过"
+          }
+        },
+        "finding_count_before": 4,
+        "finding_count_after": 5,
+        "new_findings": [
+          {
+            "id": "F-3ee7e1880dc0491e8f4b5234edcd350f",
+            "identity": "I1",
+            "phenomenon": "裸露",
+            "status": "疑似",
+            "basis": "线状回波有 P_X、C_X 两个候选。"
+          }
+        ]
+      },
+      {
+        "scenario": "观测有歧义",
+        "input": "看看交叉点管子露出来没有。",
+        "tool_calls": [
+          {
+            "tool": "search_observations",
+            "input": {
+              "survey_number": null,
+              "sensor_kind": null,
+              "segment_id": null,
+              "target_keyword": "交叉",
+              "asset_kind": "管道"
+            },
+            "output": {
+              "observations": [
+                {
+                  "observation_id": "O1",
+                  "survey_id": "S1",
+                  "survey_number": 1,
+                  "survey_day": "2026-01-10",
+                  "sensor_kind": "侧扫声呐",
+                  "target_label": "交叉点线状特征"
+                },
+                {
+                  "observation_id": "O2",
+                  "survey_id": "S2",
+                  "survey_number": 2,
+                  "survey_day": "2026-02-10",
+                  "sensor_kind": "摄像机",
+                  "target_label": "交叉点线状特征"
+                }
+              ],
+              "truncated": false
+            }
+          }
+        ],
+        "result": {
+          "action": "clarify",
+          "question": "你想用首次声呐还是复检视频？",
+          "candidates": [
+            {
+              "observation_id": "O1",
+              "survey_id": "S1",
+              "survey_number": 1,
+              "survey_day": "2026-01-10",
+              "sensor_kind": "侧扫声呐",
+              "target_label": "交叉点线状特征"
+            },
+            {
+              "observation_id": "O2",
+              "survey_id": "S2",
+              "survey_number": 2,
+              "survey_day": "2026-02-10",
+              "sensor_kind": "摄像机",
+              "target_label": "交叉点线状特征"
+            }
+          ],
+          "receipt": {
+            "written": false,
+            "reason": "需要补充观测或判读对象。"
+          }
+        },
+        "finding_count_before": 4,
+        "finding_count_after": 4,
+        "new_findings": []
+      },
+      {
+        "scenario": "只看结果",
+        "input": "用复检视频判断一下，只看结果。",
+        "tool_calls": [
+          {
+            "tool": "search_observations",
+            "input": {
+              "survey_number": 2,
+              "sensor_kind": "摄像机",
+              "segment_id": null,
+              "target_keyword": "交叉",
+              "asset_kind": "管道"
+            },
+            "output": {
+              "observations": [
+                {
+                  "observation_id": "O2",
+                  "survey_id": "S2",
+                  "survey_number": 2,
+                  "survey_day": "2026-02-10",
+                  "sensor_kind": "摄像机",
+                  "target_label": "交叉点线状特征"
+                }
+              ],
+              "truncated": false
+            }
+          },
+          {
+            "tool": "query_observation",
+            "input": {
+              "observation_id": "O2"
+            },
+            "output": {
+              "observation": {
+                "id": "O2",
+                "survey": "S2",
+                "sensor_kind": "摄像机",
+                "target": "T1",
+                "instant": "2026-02-10T09:00:00Z",
+                "property": "外表面可见性",
+                "result": "可见连续管体及识别标记",
+                "evidence": "V08 / 12–18 s"
+              },
+              "identities": [
+                {
+                  "identity_id": "I3",
+                  "identity_status": "确认",
+                  "identity_basis": "管体标记与模拟台账吻合",
+                  "segment": "P_X",
+                  "asset": "P01",
+                  "asset_kind": "管道",
+                  "route_version": "v1",
+                  "startM": 40.0,
+                  "endM": 60.0
+                }
+              ]
+            }
+          }
+        ],
+        "result": {
+          "action": "answer",
+          "conclusion": "影像可见部分确认局部裸露。",
+          "phenomenon": "裸露",
+          "status": "确认",
+          "basis": "可见连续管体及识别标记。",
+          "subject": {
+            "identity_id": "I3",
+            "identity_status": "确认",
+            "identity_basis": "管体标记与模拟台账吻合",
+            "segment": "P_X",
+            "asset": "P01",
+            "asset_kind": "管道",
+            "route_version": "v1",
+            "startM": 40.0,
+            "endM": 60.0
+          },
+          "observation_id": "O2",
+          "evidence": "V08 / 12–18 s",
+          "identities": [
+            {
+              "identity_id": "I3",
+              "identity_status": "确认",
+              "identity_basis": "管体标记与模拟台账吻合",
+              "segment": "P_X",
+              "asset": "P01",
+              "asset_kind": "管道",
+              "route_version": "v1",
+              "startM": 40.0,
+              "endM": 60.0
+            }
+          ],
+          "receipt": {
+            "written": false,
+            "reason": "本次仅返回判读。"
+          }
+        },
+        "finding_count_before": 4,
+        "finding_count_after": 4,
+        "new_findings": []
+      },
+      {
+        "scenario": "强行确认候选身份",
+        "input": {
+          "identity_id": "I1",
+          "phenomenon": "裸露",
+          "status": "确认",
+          "basis": "线状回波"
+        },
+        "tool_calls": [
+          {
+            "tool": "commit_finding",
+            "input": {
+              "identity_id": "I1",
+              "phenomenon": "裸露",
+              "status": "确认",
+              "basis": "线状回波"
+            },
+            "output": {
+              "written": false,
+              "reason": "I1 的身份状态为候选，确认判读要求身份已确认。",
+              "validation_report": "Validation Report\nConforms: False\nResults (1):\nConstraint Violation in OrConstraintComponent (http://www.w3.org/ns/shacl#OrConstraintComponent):\n\tSeverity: sh:Violation\n\tSource Shape: :ConfirmedShape\n\tFocus Node: :F-83b9c5ff961d44cd815fc51a8787bdd4\n\tValue Node: :F-83b9c5ff961d44cd815fc51a8787bdd4\n\tMessage: Node :F-83b9c5ff961d44cd815fc51a8787bdd4 must conform to one or more shapes in [ sh:not [ sh:property [ sh:hasValue Literal(\"确认\", datatype=xsd:string) ; sh:path :Finding_status ] ] ] , [ sh:property [ sh:hasValue Literal(\"确认\", datatype=xsd:string) ; sh:path ( :Finding_identity :Identity_status ) ], [ sh:minCount Literal(\"1\", datatype=xsd:integer) ; sh:path ( :Finding_identity :Identity_observation :Observation_evidence ) ; sh:pattern Literal(\"\\S\") ], [ sh:path :Finding_basis ; sh:pattern Literal(\"\\S\") ] ]\n"
+            }
+          }
+        ],
+        "result": {
+          "receipt": {
+            "written": false,
+            "reason": "I1 的身份状态为候选，确认判读要求身份已确认。",
+            "validation_report": "Validation Report\nConforms: False\nResults (1):\nConstraint Violation in OrConstraintComponent (http://www.w3.org/ns/shacl#OrConstraintComponent):\n\tSeverity: sh:Violation\n\tSource Shape: :ConfirmedShape\n\tFocus Node: :F-83b9c5ff961d44cd815fc51a8787bdd4\n\tValue Node: :F-83b9c5ff961d44cd815fc51a8787bdd4\n\tMessage: Node :F-83b9c5ff961d44cd815fc51a8787bdd4 must conform to one or more shapes in [ sh:not [ sh:property [ sh:hasValue Literal(\"确认\", datatype=xsd:string) ; sh:path :Finding_status ] ] ] , [ sh:property [ sh:hasValue Literal(\"确认\", datatype=xsd:string) ; sh:path ( :Finding_identity :Identity_status ) ], [ sh:minCount Literal(\"1\", datatype=xsd:integer) ; sh:path ( :Finding_identity :Identity_observation :Observation_evidence ) ; sh:pattern Literal(\"\\S\") ], [ sh:path :Finding_basis ; sh:pattern Literal(\"\\S\") ] ]\n"
+          }
+        },
+        "finding_count_before": 4,
+        "finding_count_after": 4,
+        "new_findings": []
+      },
+      {
+        "scenario": "非法状态",
+        "input": {
+          "identity_id": "I3",
+          "phenomenon": "裸露",
+          "status": "已确认",
+          "basis": "外表面可见"
+        },
+        "tool_calls": [
+          {
+            "tool": "commit_finding",
+            "input": {
+              "identity_id": "I3",
+              "phenomenon": "裸露",
+              "status": "已确认",
+              "basis": "外表面可见"
+            },
+            "output": {
+              "written": false,
+              "reason": "判读状态只允许：疑似、确认、证据不足。"
+            }
+          }
+        ],
+        "result": {
+          "receipt": {
+            "written": false,
+            "reason": "判读状态只允许：疑似、确认、证据不足。"
+          }
+        },
+        "finding_count_before": 4,
+        "finding_count_after": 4,
+        "new_findings": []
+      },
+      {
+        "scenario": "未授权时模型误判保存",
+        "input": "判断交叉点管段是否裸露。",
+        "tool_calls": [
+          {
+            "tool": "search_observations",
+            "input": {
+              "survey_number": 2,
+              "sensor_kind": "摄像机",
+              "segment_id": null,
+              "target_keyword": "交叉",
+              "asset_kind": "管道"
+            },
+            "output": {
+              "observations": [
+                {
+                  "observation_id": "O2",
+                  "survey_id": "S2",
+                  "survey_number": 2,
+                  "survey_day": "2026-02-10",
+                  "sensor_kind": "摄像机",
+                  "target_label": "交叉点线状特征"
+                }
+              ],
+              "truncated": false
+            }
+          },
+          {
+            "tool": "query_observation",
+            "input": {
+              "observation_id": "O2"
+            },
+            "output": {
+              "observation": {
+                "id": "O2",
+                "survey": "S2",
+                "sensor_kind": "摄像机",
+                "target": "T1",
+                "instant": "2026-02-10T09:00:00Z",
+                "property": "外表面可见性",
+                "result": "可见连续管体及识别标记",
+                "evidence": "V08 / 12–18 s"
+              },
+              "identities": [
+                {
+                  "identity_id": "I3",
+                  "identity_status": "确认",
+                  "identity_basis": "管体标记与模拟台账吻合",
+                  "segment": "P_X",
+                  "asset": "P01",
+                  "asset_kind": "管道",
+                  "route_version": "v1",
+                  "startM": 40.0,
+                  "endM": 60.0
+                }
+              ]
+            }
+          }
+        ],
+        "result": {
+          "action": "save",
+          "conclusion": "影像可见部分确认局部裸露。",
+          "phenomenon": "裸露",
+          "status": "确认",
+          "basis": "可见连续管体及识别标记。",
+          "subject": {
+            "identity_id": "I3",
+            "identity_status": "确认",
+            "identity_basis": "管体标记与模拟台账吻合",
+            "segment": "P_X",
+            "asset": "P01",
+            "asset_kind": "管道",
+            "route_version": "v1",
+            "startM": 40.0,
+            "endM": 60.0
+          },
+          "observation_id": "O2",
+          "evidence": "V08 / 12–18 s",
+          "identities": [
+            {
+              "identity_id": "I3",
+              "identity_status": "确认",
+              "identity_basis": "管体标记与模拟台账吻合",
+              "segment": "P_X",
+              "asset": "P01",
+              "asset_kind": "管道",
+              "route_version": "v1",
+              "startM": 40.0,
+              "endM": 60.0
+            }
+          ],
+          "receipt": {
+            "written": false,
+            "reason": "本次请求未获得应用层写入授权。"
+          }
+        },
+        "finding_count_before": 4,
+        "finding_count_after": 4,
+        "new_findings": []
+      },
+      {
+        "scenario": "明确只读时模型误判保存",
+        "input": "根据 O2 判断，请不要把结果保存。",
+        "tool_calls": [
+          {
+            "tool": "search_observations",
+            "input": {
+              "survey_number": 2,
+              "sensor_kind": "摄像机",
+              "segment_id": null,
+              "target_keyword": "交叉",
+              "asset_kind": "管道"
+            },
+            "output": {
+              "observations": [
+                {
+                  "observation_id": "O2",
+                  "survey_id": "S2",
+                  "survey_number": 2,
+                  "survey_day": "2026-02-10",
+                  "sensor_kind": "摄像机",
+                  "target_label": "交叉点线状特征"
+                }
+              ],
+              "truncated": false
+            }
+          },
+          {
+            "tool": "query_observation",
+            "input": {
+              "observation_id": "O2"
+            },
+            "output": {
+              "observation": {
+                "id": "O2",
+                "survey": "S2",
+                "sensor_kind": "摄像机",
+                "target": "T1",
+                "instant": "2026-02-10T09:00:00Z",
+                "property": "外表面可见性",
+                "result": "可见连续管体及识别标记",
+                "evidence": "V08 / 12–18 s"
+              },
+              "identities": [
+                {
+                  "identity_id": "I3",
+                  "identity_status": "确认",
+                  "identity_basis": "管体标记与模拟台账吻合",
+                  "segment": "P_X",
+                  "asset": "P01",
+                  "asset_kind": "管道",
+                  "route_version": "v1",
+                  "startM": 40.0,
+                  "endM": 60.0
+                }
+              ]
+            }
+          }
+        ],
+        "result": {
+          "action": "save",
+          "conclusion": "影像可见部分确认局部裸露。",
+          "phenomenon": "裸露",
+          "status": "确认",
+          "basis": "可见连续管体及识别标记。",
+          "subject": {
+            "identity_id": "I3",
+            "identity_status": "确认",
+            "identity_basis": "管体标记与模拟台账吻合",
+            "segment": "P_X",
+            "asset": "P01",
+            "asset_kind": "管道",
+            "route_version": "v1",
+            "startM": 40.0,
+            "endM": 60.0
+          },
+          "observation_id": "O2",
+          "evidence": "V08 / 12–18 s",
+          "identities": [
+            {
+              "identity_id": "I3",
+              "identity_status": "确认",
+              "identity_basis": "管体标记与模拟台账吻合",
+              "segment": "P_X",
+              "asset": "P01",
+              "asset_kind": "管道",
+              "route_version": "v1",
+              "startM": 40.0,
+              "endM": 60.0
+            }
+          ],
+          "receipt": {
+            "written": false,
+            "reason": "本次请求未获得应用层写入授权。"
+          }
+        },
+        "finding_count_before": 4,
+        "finding_count_after": 4,
+        "new_findings": []
+      }
+    ],
+    "failures": []
+  },
+  "deepseek_live": {
+    "mode": "live",
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "runs": [
+      {
+        "scenario": "复检录像改写",
+        "input": "复检录像里，交叉处那段管子有没有露出来？把结果存一下。",
+        "tool_calls": [
+          {
+            "tool": "search_observations",
+            "input": {
+              "survey_number": null,
+              "sensor_kind": "摄像机",
+              "segment_id": null,
+              "target_keyword": "交叉",
+              "asset_kind": null
+            },
+            "output": {
+              "observations": [
+                {
+                  "observation_id": "O2",
+                  "survey_id": "S2",
+                  "survey_number": 2,
+                  "survey_day": "2026-02-10",
+                  "sensor_kind": "摄像机",
+                  "target_label": "交叉点线状特征"
+                }
+              ],
+              "truncated": false
+            }
+          },
+          {
+            "tool": "query_observation",
+            "input": {
+              "observation_id": "O2"
+            },
+            "output": {
+              "observation": {
+                "id": "O2",
+                "survey": "S2",
+                "sensor_kind": "摄像机",
+                "target": "T1",
+                "instant": "2026-02-10T09:00:00Z",
+                "property": "外表面可见性",
+                "result": "可见连续管体及识别标记",
+                "evidence": "V08 / 12–18 s"
+              },
+              "identities": [
+                {
+                  "identity_id": "I3",
+                  "identity_status": "确认",
+                  "identity_basis": "管体标记与模拟台账吻合",
+                  "segment": "P_X",
+                  "asset": "P01",
+                  "asset_kind": "管道",
+                  "route_version": "v1",
+                  "startM": 40.0,
+                  "endM": 60.0
+                }
+              ]
+            }
+          },
+          {
+            "tool": "submit_finding",
+            "input": {
+              "identity_id": "I3",
+              "phenomenon": "裸露",
+              "status": "确认",
+              "basis": "第二批（2026-02-10）交叉处摄像机观测 O2（V08 / 12–18 s）显示外表面可见连续管体及识别标记；身份 I3 已确认（管体标记与模拟台账吻合），对应 P_X（P01，40–60 m）交叉点管段，局限于影像可见范围。"
+            },
+            "output": {
+              "staged": true,
+              "written": false
+            }
+          },
+          {
+            "tool": "commit_finding",
+            "input": {
+              "identity_id": "I3",
+              "phenomenon": "裸露",
+              "status": "确认",
+              "basis": "第二批（2026-02-10）交叉处摄像机观测 O2（V08 / 12–18 s）显示外表面可见连续管体及识别标记；身份 I3 已确认（管体标记与模拟台账吻合），对应 P_X（P01，40–60 m）交叉点管段，局限于影像可见范围。"
+            },
+            "output": {
+              "written": true,
+              "finding_id": "F-f290b1ea54964bc2b94a2cdfb40cb3a0",
+              "validation": "SHACL 校验通过"
+            }
+          }
+        ],
+        "result": {
+          "action": "save",
+          "conclusion": "复检录像（第二批，2026-02-10，交叉处观测 O2，V08 12–18 s）显示外表面可见连续管体及识别标记；该管段身份已确认（P_X，P01 管道 40–60 m），因此判读为局部裸露，范围限于影像可见部分。已暂存该判读，待平台本轮结束后校验并返回实际写入结果。",
+          "phenomenon": "裸露",
+          "status": "确认",
+          "basis": "第二批（2026-02-10）交叉处摄像机观测 O2（V08 / 12–18 s）显示外表面可见连续管体及识别标记；身份 I3 已确认（管体标记与模拟台账吻合），对应 P_X（P01，40–60 m）交叉点管段，局限于影像可见范围。",
+          "subject": {
+            "identity_id": "I3",
+            "identity_status": "确认",
+            "identity_basis": "管体标记与模拟台账吻合",
+            "segment": "P_X",
+            "asset": "P01",
+            "asset_kind": "管道",
+            "route_version": "v1",
+            "startM": 40.0,
+            "endM": 60.0
+          },
+          "observation_id": "O2",
+          "evidence": "V08 / 12–18 s",
+          "identities": [
+            {
+              "identity_id": "I3",
+              "identity_status": "确认",
+              "identity_basis": "管体标记与模拟台账吻合",
+              "segment": "P_X",
+              "asset": "P01",
+              "asset_kind": "管道",
+              "route_version": "v1",
+              "startM": 40.0,
+              "endM": 60.0
+            }
+          ],
+          "receipt": {
+            "written": true,
+            "finding_id": "F-f290b1ea54964bc2b94a2cdfb40cb3a0",
+            "validation": "SHACL 校验通过"
+          }
+        },
+        "finding_count_before": 4,
+        "finding_count_after": 5,
+        "new_findings": [
+          {
+            "id": "F-f290b1ea54964bc2b94a2cdfb40cb3a0",
+            "identity": "I3",
+            "phenomenon": "裸露",
+            "status": "确认",
+            "basis": "第二批（2026-02-10）交叉处摄像机观测 O2（V08 / 12–18 s）显示外表面可见连续管体及识别标记；身份 I3 已确认（管体标记与模拟台账吻合），对应 P_X（P01，40–60 m）交叉点管段，局限于影像可见范围。"
+          }
+        ]
+      },
+      {
+        "scenario": "首次声呐改写",
+        "input": "第一次声呐扫过交叉处时，能看出管子露出来了吗？把初判记下。",
+        "tool_calls": [
+          {
+            "tool": "search_observations",
+            "input": {
+              "survey_number": 1,
+              "sensor_kind": "声呐",
+              "segment_id": null,
+              "target_keyword": "交叉",
+              "asset_kind": null
+            },
+            "output": {
+              "observations": [
+                {
+                  "observation_id": "O1",
+                  "survey_id": "S1",
+                  "survey_number": 1,
+                  "survey_day": "2026-01-10",
+                  "sensor_kind": "侧扫声呐",
+                  "target_label": "交叉点线状特征"
+                }
+              ],
+              "truncated": false
+            }
+          },
+          {
+            "tool": "query_observation",
+            "input": {
+              "observation_id": "O1"
+            },
+            "output": {
+              "observation": {
+                "id": "O1",
+                "survey": "S1",
+                "sensor_kind": "侧扫声呐",
+                "target": "T1",
+                "instant": "2026-01-10T09:00:00Z",
+                "property": "形态",
+                "result": "线状回波",
+                "evidence": "S17 / ping 120–145"
+              },
+              "identities": [
+                {
+                  "identity_id": "I1",
+                  "identity_status": "候选",
+                  "identity_basis": "与参考线路相交",
+                  "segment": "P_X",
+                  "asset": "P01",
+                  "asset_kind": "管道",
+                  "route_version": "v1",
+                  "startM": 40.0,
+                  "endM": 60.0
+                },
+                {
+                  "identity_id": "I2",
+                  "identity_status": "候选",
+                  "identity_basis": "与参考线路相交",
+                  "segment": "C_X",
+                  "asset": "C01",
+                  "asset_kind": "海缆",
+                  "route_version": "v1",
+                  "startM": 40.0,
+                  "endM": 60.0
+                }
+              ]
+            }
+          },
+          {
+            "tool": "submit_finding",
+            "input": {
+              "identity_id": "I1",
+              "phenomenon": "裸露",
+              "status": "疑似",
+              "basis": "第一次（2026-01-10）侧扫声呐在交叉点P_X段（P01管道，40–60 m）记录到线状回波（S17 / ping 120–145），与参考线路相交；声呐线状回波仅支持疑似裸露判读。该处另有海缆候选C_X（C01）未被排除，需进一步区分。"
+            },
+            "output": {
+              "staged": true,
+              "written": false
+            }
+          },
+          {
+            "tool": "commit_finding",
+            "input": {
+              "identity_id": "I1",
+              "phenomenon": "裸露",
+              "status": "疑似",
+              "basis": "第一次（2026-01-10）侧扫声呐在交叉点P_X段（P01管道，40–60 m）记录到线状回波（S17 / ping 120–145），与参考线路相交；声呐线状回波仅支持疑似裸露判读。该处另有海缆候选C_X（C01）未被排除，需进一步区分。"
+            },
+            "output": {
+              "written": true,
+              "finding_id": "F-bb669ba074ce4ec89b4d6a719794ff89",
+              "validation": "SHACL 校验通过"
+            }
+          }
+        ],
+        "result": {
+          "action": "save",
+          "conclusion": "第一次声呐（2026-01-10，侧扫声呐）在交叉点管段 P_X（P01 管道，40–60 m）记录到线状回波（S17 / ping 120–145），且该特征与参考线路相交。线状回波仅能支持“疑似”判读，不能确认裸露；同一交叉处还有海缆候选 C_X（C01）未排除，不能单独确认管道裸露。已按疑似初判暂存，平台将在本轮结束后返回入库校验结果。",
+          "phenomenon": "裸露",
+          "status": "疑似",
+          "basis": "第一次（2026-01-10）侧扫声呐在交叉点P_X段（P01管道，40–60 m）记录到线状回波（S17 / ping 120–145），与参考线路相交；声呐线状回波仅支持疑似裸露判读。该处另有海缆候选C_X（C01）未被排除，需进一步区分。",
+          "subject": {
+            "identity_id": "I1",
+            "identity_status": "候选",
+            "identity_basis": "与参考线路相交",
+            "segment": "P_X",
+            "asset": "P01",
+            "asset_kind": "管道",
+            "route_version": "v1",
+            "startM": 40.0,
+            "endM": 60.0
+          },
+          "observation_id": "O1",
+          "evidence": "S17 / ping 120–145",
+          "identities": [
+            {
+              "identity_id": "I1",
+              "identity_status": "候选",
+              "identity_basis": "与参考线路相交",
+              "segment": "P_X",
+              "asset": "P01",
+              "asset_kind": "管道",
+              "route_version": "v1",
+              "startM": 40.0,
+              "endM": 60.0
+            },
+            {
+              "identity_id": "I2",
+              "identity_status": "候选",
+              "identity_basis": "与参考线路相交",
+              "segment": "C_X",
+              "asset": "C01",
+              "asset_kind": "海缆",
+              "route_version": "v1",
+              "startM": 40.0,
+              "endM": 60.0
+            }
+          ],
+          "receipt": {
+            "written": true,
+            "finding_id": "F-bb669ba074ce4ec89b4d6a719794ff89",
+            "validation": "SHACL 校验通过"
+          }
+        },
+        "finding_count_before": 4,
+        "finding_count_after": 5,
+        "new_findings": [
+          {
+            "id": "F-bb669ba074ce4ec89b4d6a719794ff89",
+            "identity": "I1",
+            "phenomenon": "裸露",
+            "status": "疑似",
+            "basis": "第一次（2026-01-10）侧扫声呐在交叉点P_X段（P01管道，40–60 m）记录到线状回波（S17 / ping 120–145），与参考线路相交；声呐线状回波仅支持疑似裸露判读。该处另有海缆候选C_X（C01）未被排除，需进一步区分。"
+          }
+        ]
+      },
+      {
+        "scenario": "观测有歧义",
+        "input": "看看交叉点管子露出来没有。",
+        "tool_calls": [
+          {
+            "tool": "search_observations",
+            "input": {
+              "survey_number": null,
+              "sensor_kind": null,
+              "segment_id": null,
+              "target_keyword": "交叉",
+              "asset_kind": null
+            },
+            "output": {
+              "observations": [
+                {
+                  "observation_id": "O1",
+                  "survey_id": "S1",
+                  "survey_number": 1,
+                  "survey_day": "2026-01-10",
+                  "sensor_kind": "侧扫声呐",
+                  "target_label": "交叉点线状特征"
+                },
+                {
+                  "observation_id": "O2",
+                  "survey_id": "S2",
+                  "survey_number": 2,
+                  "survey_day": "2026-02-10",
+                  "sensor_kind": "摄像机",
+                  "target_label": "交叉点线状特征"
+                }
+              ],
+              "truncated": false
+            }
+          }
+        ],
+        "result": {
+          "action": "clarify",
+          "question": "找到两条与“交叉点”相关的观测：批次1（2026-01-10，侧扫声呐）和批次2（2026-02-10，摄像机，属复检）。请确认用哪一批判读交叉点管段是否裸露？",
+          "candidates": [
+            {
+              "observation_id": "O1",
+              "survey_id": "S1",
+              "survey_number": 1,
+              "survey_day": "2026-01-10",
+              "sensor_kind": "侧扫声呐",
+              "target_label": "交叉点线状特征"
+            },
+            {
+              "observation_id": "O2",
+              "survey_id": "S2",
+              "survey_number": 2,
+              "survey_day": "2026-02-10",
+              "sensor_kind": "摄像机",
+              "target_label": "交叉点线状特征"
+            }
+          ],
+          "receipt": {
+            "written": false,
+            "reason": "需要补充观测或判读对象。"
+          }
+        },
+        "finding_count_before": 4,
+        "finding_count_after": 4,
+        "new_findings": []
+      },
+      {
+        "scenario": "只看结果",
+        "input": "用复检视频判断一下，只看结果。",
+        "tool_calls": [
+          {
+            "tool": "search_observations",
+            "input": {
+              "survey_number": null,
+              "sensor_kind": "摄像机",
+              "segment_id": null,
+              "target_keyword": "交叉",
+              "asset_kind": null
+            },
+            "output": {
+              "observations": [
+                {
+                  "observation_id": "O2",
+                  "survey_id": "S2",
+                  "survey_number": 2,
+                  "survey_day": "2026-02-10",
+                  "sensor_kind": "摄像机",
+                  "target_label": "交叉点线状特征"
+                }
+              ],
+              "truncated": false
+            }
+          },
+          {
+            "tool": "query_observation",
+            "input": {
+              "observation_id": "O2"
+            },
+            "output": {
+              "observation": {
+                "id": "O2",
+                "survey": "S2",
+                "sensor_kind": "摄像机",
+                "target": "T1",
+                "instant": "2026-02-10T09:00:00Z",
+                "property": "外表面可见性",
+                "result": "可见连续管体及识别标记",
+                "evidence": "V08 / 12–18 s"
+              },
+              "identities": [
+                {
+                  "identity_id": "I3",
+                  "identity_status": "确认",
+                  "identity_basis": "管体标记与模拟台账吻合",
+                  "segment": "P_X",
+                  "asset": "P01",
+                  "asset_kind": "管道",
+                  "route_version": "v1",
+                  "startM": 40.0,
+                  "endM": 60.0
+                }
+              ]
+            }
+          }
+        ],
+        "result": {
+          "action": "answer",
+          "conclusion": "复检视频（第2批，编号 O2）显示交叉点处 P_X 管段（P01，40–60 m）外表面可见连续管体及识别标记，可确认该影像可见范围内的管段裸露。",
+          "phenomenon": "裸露",
+          "status": "确认",
+          "basis": "第2批复检视频 V08 / 12–18 s，外表面可见连续管体及识别标记；管体标记与模拟台账吻合，身份已确认。空间范围限于影像可见部分。",
+          "subject": {
+            "identity_id": "I3",
+            "identity_status": "确认",
+            "identity_basis": "管体标记与模拟台账吻合",
+            "segment": "P_X",
+            "asset": "P01",
+            "asset_kind": "管道",
+            "route_version": "v1",
+            "startM": 40.0,
+            "endM": 60.0
+          },
+          "observation_id": "O2",
+          "evidence": "V08 / 12–18 s",
+          "identities": [
+            {
+              "identity_id": "I3",
+              "identity_status": "确认",
+              "identity_basis": "管体标记与模拟台账吻合",
+              "segment": "P_X",
+              "asset": "P01",
+              "asset_kind": "管道",
+              "route_version": "v1",
+              "startM": 40.0,
+              "endM": 60.0
+            }
+          ],
+          "receipt": {
+            "written": false,
+            "reason": "本次仅返回判读。"
+          }
+        },
+        "finding_count_before": 4,
+        "finding_count_after": 4,
+        "new_findings": []
+      },
+      {
+        "scenario": "强行确认候选身份",
+        "input": {
+          "identity_id": "I1",
+          "phenomenon": "裸露",
+          "status": "确认",
+          "basis": "线状回波"
+        },
+        "tool_calls": [
+          {
+            "tool": "commit_finding",
+            "input": {
+              "identity_id": "I1",
+              "phenomenon": "裸露",
+              "status": "确认",
+              "basis": "线状回波"
+            },
+            "output": {
+              "written": false,
+              "reason": "I1 的身份状态为候选，确认判读要求身份已确认。",
+              "validation_report": "Validation Report\nConforms: False\nResults (1):\nConstraint Violation in OrConstraintComponent (http://www.w3.org/ns/shacl#OrConstraintComponent):\n\tSeverity: sh:Violation\n\tSource Shape: :ConfirmedShape\n\tFocus Node: :F-72effa63eda24886821d68bd250a48e3\n\tValue Node: :F-72effa63eda24886821d68bd250a48e3\n\tMessage: Node :F-72effa63eda24886821d68bd250a48e3 must conform to one or more shapes in [ sh:not [ sh:property [ sh:hasValue Literal(\"确认\", datatype=xsd:string) ; sh:path :Finding_status ] ] ] , [ sh:property [ sh:hasValue Literal(\"确认\", datatype=xsd:string) ; sh:path ( :Finding_identity :Identity_status ) ], [ sh:minCount Literal(\"1\", datatype=xsd:integer) ; sh:path ( :Finding_identity :Identity_observation :Observation_evidence ) ; sh:pattern Literal(\"\\S\") ], [ sh:path :Finding_basis ; sh:pattern Literal(\"\\S\") ] ]\n"
+            }
+          }
+        ],
+        "result": {
+          "receipt": {
+            "written": false,
+            "reason": "I1 的身份状态为候选，确认判读要求身份已确认。",
+            "validation_report": "Validation Report\nConforms: False\nResults (1):\nConstraint Violation in OrConstraintComponent (http://www.w3.org/ns/shacl#OrConstraintComponent):\n\tSeverity: sh:Violation\n\tSource Shape: :ConfirmedShape\n\tFocus Node: :F-72effa63eda24886821d68bd250a48e3\n\tValue Node: :F-72effa63eda24886821d68bd250a48e3\n\tMessage: Node :F-72effa63eda24886821d68bd250a48e3 must conform to one or more shapes in [ sh:not [ sh:property [ sh:hasValue Literal(\"确认\", datatype=xsd:string) ; sh:path :Finding_status ] ] ] , [ sh:property [ sh:hasValue Literal(\"确认\", datatype=xsd:string) ; sh:path ( :Finding_identity :Identity_status ) ], [ sh:minCount Literal(\"1\", datatype=xsd:integer) ; sh:path ( :Finding_identity :Identity_observation :Observation_evidence ) ; sh:pattern Literal(\"\\S\") ], [ sh:path :Finding_basis ; sh:pattern Literal(\"\\S\") ] ]\n"
+          }
+        },
+        "finding_count_before": 4,
+        "finding_count_after": 4,
+        "new_findings": []
+      },
+      {
+        "scenario": "非法状态",
+        "input": {
+          "identity_id": "I3",
+          "phenomenon": "裸露",
+          "status": "已确认",
+          "basis": "外表面可见"
+        },
+        "tool_calls": [
+          {
+            "tool": "commit_finding",
+            "input": {
+              "identity_id": "I3",
+              "phenomenon": "裸露",
+              "status": "已确认",
+              "basis": "外表面可见"
+            },
+            "output": {
+              "written": false,
+              "reason": "判读状态只允许：疑似、确认、证据不足。"
+            }
+          }
+        ],
+        "result": {
+          "receipt": {
+            "written": false,
+            "reason": "判读状态只允许：疑似、确认、证据不足。"
+          }
+        },
+        "finding_count_before": 4,
+        "finding_count_after": 4,
+        "new_findings": []
+      }
+    ],
+    "failures": []
+  }
+}

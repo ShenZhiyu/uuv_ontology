@@ -66,6 +66,48 @@ class InspectionTools:
         db.row_factory = sqlite3.Row
         return db
 
+    def search_observations(
+        self, survey_number=None, sensor_kind=None, segment_id=None,
+        target_keyword=None, asset_kind=None,
+    ):
+        """Find at most 20 observations, ordered by survey and capture time."""
+        with closing(self._connect("ro")) as db:
+            rows = db.execute(
+                """
+                WITH surveys AS (
+                    SELECT id, day, ROW_NUMBER() OVER (ORDER BY day, id) AS survey_number
+                    FROM Survey
+                )
+                SELECT o.id AS observation_id, s.id AS survey_id, s.survey_number,
+                       s.day AS survey_day, sensor.kind AS sensor_kind, t.label AS target_label
+                FROM Observation AS o
+                JOIN Deployment AS d ON d.id = o.deployment
+                JOIN surveys AS s ON s.id = d.survey
+                JOIN Sensor AS sensor ON sensor.id = d.sensor
+                JOIN Target AS t ON t.id = o.target
+                WHERE (:survey_number IS NULL OR s.survey_number = :survey_number)
+                  AND (:sensor_kind IS NULL OR instr(sensor.kind, :sensor_kind) > 0)
+                  AND (:target_keyword IS NULL OR instr(t.label, :target_keyword) > 0)
+                  AND ((:segment_id IS NULL AND :asset_kind IS NULL) OR EXISTS (
+                    SELECT 1 FROM Identity AS i
+                    JOIN Segment AS seg ON seg.id = i.segment
+                    JOIN Route AS r ON r.id = seg.route
+                    JOIN Asset AS a ON a.id = r.asset
+                    WHERE i.observation = o.id
+                      AND (:segment_id IS NULL OR seg.id = :segment_id)
+                      AND (:asset_kind IS NULL OR a.kind = :asset_kind)
+                  ))
+                ORDER BY s.survey_number, o.instant, o.id
+                LIMIT 21
+                """,
+                {
+                    "survey_number": survey_number, "sensor_kind": sensor_kind,
+                    "segment_id": segment_id, "target_keyword": target_keyword,
+                    "asset_kind": asset_kind,
+                },
+            ).fetchall()
+        return {"observations": [dict(row) for row in rows[:20]], "truncated": len(rows) > 20}
+
     def query_observation(self, observation_id):
         with closing(self._connect("ro")) as db:
             rows = db.execute(
