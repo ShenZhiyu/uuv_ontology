@@ -1,0 +1,54 @@
+@prefix : <https://example.org/uuv/v01/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+
+:A a :Area ; :Area_geometry "<http://www.opengis.net/def/crs/EPSG/0/32631> POLYGON ((500000 1000000,500100 1000000,500100 1000100,500000 1000100,500000 1000000))"^^geo:wktLiteral .
+:P01 a :Asset ; :Asset_kind "管道"^^xsd:string .
+:C01 a :Asset ; :Asset_kind "海缆"^^xsd:string .
+:RP a :Route ; :Route_asset :P01 ; :Route_version "v1"^^xsd:string ; :Route_geometry "<http://www.opengis.net/def/crs/EPSG/0/32631> LINESTRING (500000 1000050,500100 1000050)"^^geo:wktLiteral .
+:RC a :Route ; :Route_asset :C01 ; :Route_version "v1"^^xsd:string ; :Route_geometry "<http://www.opengis.net/def/crs/EPSG/0/32631> LINESTRING (500050 1000000,500050 1000100)"^^geo:wktLiteral .
+:P_W a :Segment ; :Segment_route :RP ; :Segment_area :A ; :Segment_startM "0"^^xsd:decimal ; :Segment_endM "40"^^xsd:decimal .
+:P_X a :Segment ; :Segment_route :RP ; :Segment_area :A ; :Segment_startM "40"^^xsd:decimal ; :Segment_endM "60"^^xsd:decimal .
+:P_E a :Segment ; :Segment_route :RP ; :Segment_area :A ; :Segment_startM "60"^^xsd:decimal ; :Segment_endM "100"^^xsd:decimal .
+:C_S a :Segment ; :Segment_route :RC ; :Segment_area :A ; :Segment_startM "0"^^xsd:decimal ; :Segment_endM "40"^^xsd:decimal .
+:C_X a :Segment ; :Segment_route :RC ; :Segment_area :A ; :Segment_startM "40"^^xsd:decimal ; :Segment_endM "60"^^xsd:decimal .
+:C_N a :Segment ; :Segment_route :RC ; :Segment_area :A ; :Segment_startM "60"^^xsd:decimal ; :Segment_endM "100"^^xsd:decimal .
+:S1 a :Survey ; :Survey_area :A ; :Survey_day "2026-01-10"^^xsd:string .
+:S2 a :Survey ; :Survey_area :A ; :Survey_day "2026-02-10"^^xsd:string .
+:U1 a :Platform ; :Platform_label "模拟航行器一号"^^xsd:string .
+:SS a :Sensor ; :Sensor_kind "侧扫声呐"^^xsd:string .
+:CAM a :Sensor ; :Sensor_kind "摄像机"^^xsd:string .
+:S1SS a :Deployment ; :Deployment_survey :S1 ; :Deployment_platform :U1 ; :Deployment_sensor :SS .
+:S1CAM a :Deployment ; :Deployment_survey :S1 ; :Deployment_platform :U1 ; :Deployment_sensor :CAM .
+:S2SS a :Deployment ; :Deployment_survey :S2 ; :Deployment_platform :U1 ; :Deployment_sensor :SS .
+:S2CAM a :Deployment ; :Deployment_survey :S2 ; :Deployment_platform :U1 ; :Deployment_sensor :CAM .
+:S1P_W a :Coverage ; :Coverage_survey :S1 ; :Coverage_segment :P_W ; :Coverage_status "有效覆盖"^^xsd:string .
+:S1P_X a :Coverage ; :Coverage_survey :S1 ; :Coverage_segment :P_X ; :Coverage_status "有效覆盖"^^xsd:string .
+:S1P_E a :Coverage ; :Coverage_survey :S1 ; :Coverage_segment :P_E ; :Coverage_status "缺口"^^xsd:string .
+:S1C_S a :Coverage ; :Coverage_survey :S1 ; :Coverage_segment :C_S ; :Coverage_status "有效覆盖"^^xsd:string .
+:S1C_X a :Coverage ; :Coverage_survey :S1 ; :Coverage_segment :C_X ; :Coverage_status "有效覆盖"^^xsd:string .
+:S1C_N a :Coverage ; :Coverage_survey :S1 ; :Coverage_segment :C_N ; :Coverage_status "缺口"^^xsd:string .
+:S2P_W a :Coverage ; :Coverage_survey :S2 ; :Coverage_segment :P_W ; :Coverage_status "有效覆盖"^^xsd:string .
+:S2P_X a :Coverage ; :Coverage_survey :S2 ; :Coverage_segment :P_X ; :Coverage_status "有效覆盖"^^xsd:string .
+:S2P_E a :Coverage ; :Coverage_survey :S2 ; :Coverage_segment :P_E ; :Coverage_status "有效覆盖"^^xsd:string .
+:S2C_S a :Coverage ; :Coverage_survey :S2 ; :Coverage_segment :C_S ; :Coverage_status "有效覆盖"^^xsd:string .
+:S2C_X a :Coverage ; :Coverage_survey :S2 ; :Coverage_segment :C_X ; :Coverage_status "有效覆盖"^^xsd:string .
+:S2C_N a :Coverage ; :Coverage_survey :S2 ; :Coverage_segment :C_N ; :Coverage_status "缺口"^^xsd:string .
+:T1 a :Target ; :Target_label "交叉点线状特征"^^xsd:string .
+:T2 a :Target ; :Target_label "西段可见管体"^^xsd:string .
+:O1 a :Observation ; :Observation_deployment :S1SS ; :Observation_target :T1 ; :Observation_instant "2026-01-10T09:00:00Z"^^xsd:dateTime ; :Observation_property "形态"^^xsd:string ; :Observation_result "线状回波"^^xsd:string ; :Observation_evidence "S17 / ping 120–145"^^xsd:string .
+:O2 a :Observation ; :Observation_deployment :S2CAM ; :Observation_target :T1 ; :Observation_instant "2026-02-10T09:00:00Z"^^xsd:dateTime ; :Observation_property "外表面可见性"^^xsd:string ; :Observation_result "可见连续管体及识别标记"^^xsd:string ; :Observation_evidence "V08 / 12–18 s"^^xsd:string .
+:O3 a :Observation ; :Observation_deployment :S1CAM ; :Observation_target :T2 ; :Observation_instant "2026-01-10T09:05:00Z"^^xsd:dateTime ; :Observation_property "外表面可见性"^^xsd:string ; :Observation_result "可见管体及识别标记"^^xsd:string ; :Observation_evidence "V03 / 2–9 s"^^xsd:string .
+:I1 a :Identity ; :Identity_observation :O1 ; :Identity_segment :P_X ; :Identity_status "候选"^^xsd:string ; :Identity_basis "与参考线路相交"^^xsd:string .
+:I2 a :Identity ; :Identity_observation :O1 ; :Identity_segment :C_X ; :Identity_status "候选"^^xsd:string ; :Identity_basis "与参考线路相交"^^xsd:string .
+:I3 a :Identity ; :Identity_observation :O2 ; :Identity_segment :P_X ; :Identity_status "确认"^^xsd:string ; :Identity_basis "管体标记与模拟台账吻合"^^xsd:string .
+:I4 a :Identity ; :Identity_observation :O3 ; :Identity_segment :P_W ; :Identity_status "确认"^^xsd:string ; :Identity_basis "管体标记与模拟台账吻合"^^xsd:string .
+:F1 a :Finding ; :Finding_identity :I1 ; :Finding_phenomenon "裸露"^^xsd:string ; :Finding_status "疑似"^^xsd:string ; :Finding_basis "声像可见线状回波，身份待定"^^xsd:string .
+:F2 a :Finding ; :Finding_identity :I3 ; :Finding_phenomenon "裸露"^^xsd:string ; :Finding_status "确认"^^xsd:string ; :Finding_basis "标记可辨且外表面可见"^^xsd:string .
+:F3 a :Finding ; :Finding_identity :I3 ; :Finding_phenomenon "悬跨"^^xsd:string ; :Finding_status "证据不足"^^xsd:string ; :Finding_basis "管底支承区域未成像"^^xsd:string .
+:F4 a :Finding ; :Finding_identity :I4 ; :Finding_phenomenon "裸露"^^xsd:string ; :Finding_status "确认"^^xsd:string ; :Finding_basis "标记可辨且外表面可见"^^xsd:string .
+:M1 a :Measurement ; :Measurement_observation :O2 ; :Measurement_quantity "可见管段长度"^^xsd:string ; :Measurement_value "3.2"^^xsd:decimal ; :Measurement_unit "m"^^xsd:string ; :Measurement_reference "沿管轴，两可见端点之间"^^xsd:string .

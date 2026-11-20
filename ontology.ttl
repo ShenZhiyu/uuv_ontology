@@ -1,0 +1,69 @@
+@prefix : <https://example.org/uuv/v01/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+
+:Model a owl:Ontology .
+:Area a owl:Class ; rdfs:label "调查区"@zh .
+:Area_geometry a owl:DatatypeProperty ; rdfs:domain :Area ; rdfs:range geo:wktLiteral .
+:Asset a owl:Class ; rdfs:label "线性设施"@zh .
+:Asset_kind a owl:DatatypeProperty ; rdfs:domain :Asset ; rdfs:range xsd:string .
+:Route a owl:Class ; rdfs:label "参考线路版本"@zh .
+:Route_asset a owl:ObjectProperty ; rdfs:domain :Route ; rdfs:range :Asset .
+:Route_version a owl:DatatypeProperty ; rdfs:domain :Route ; rdfs:range xsd:string .
+:Route_geometry a owl:DatatypeProperty ; rdfs:domain :Route ; rdfs:range geo:wktLiteral .
+:Segment a owl:Class ; rdfs:label "资产区段"@zh .
+:Segment_route a owl:ObjectProperty ; rdfs:domain :Segment ; rdfs:range :Route .
+:Segment_area a owl:ObjectProperty ; rdfs:domain :Segment ; rdfs:range :Area .
+:Segment_startM a owl:DatatypeProperty ; rdfs:domain :Segment ; rdfs:range xsd:decimal .
+:Segment_endM a owl:DatatypeProperty ; rdfs:domain :Segment ; rdfs:range xsd:decimal .
+:Survey a owl:Class ; rdfs:label "巡检批次"@zh .
+:Survey_area a owl:ObjectProperty ; rdfs:domain :Survey ; rdfs:range :Area .
+:Survey_day a owl:DatatypeProperty ; rdfs:domain :Survey ; rdfs:range xsd:string .
+:Platform a owl:Class ; rdfs:label "航行器"@zh .
+:Platform_label a owl:DatatypeProperty ; rdfs:domain :Platform ; rdfs:range xsd:string .
+:Sensor a owl:Class ; rdfs:label "感知设备"@zh .
+:Sensor_kind a owl:DatatypeProperty ; rdfs:domain :Sensor ; rdfs:range xsd:string .
+:Deployment a owl:Class ; rdfs:label "批次装载记录"@zh .
+:Deployment_survey a owl:ObjectProperty ; rdfs:domain :Deployment ; rdfs:range :Survey .
+:Deployment_platform a owl:ObjectProperty ; rdfs:domain :Deployment ; rdfs:range :Platform .
+:Deployment_sensor a owl:ObjectProperty ; rdfs:domain :Deployment ; rdfs:range :Sensor .
+:Coverage a owl:Class ; rdfs:label "有效覆盖记录"@zh .
+:Coverage_survey a owl:ObjectProperty ; rdfs:domain :Coverage ; rdfs:range :Survey .
+:Coverage_segment a owl:ObjectProperty ; rdfs:domain :Coverage ; rdfs:range :Segment .
+:Coverage_status a owl:DatatypeProperty ; rdfs:domain :Coverage ; rdfs:range xsd:string .
+:Target a owl:Class ; rdfs:label "观测目标"@zh .
+:Target_label a owl:DatatypeProperty ; rdfs:domain :Target ; rdfs:range xsd:string .
+:Observation a owl:Class ; rdfs:label "观测"@zh .
+:Observation_deployment a owl:ObjectProperty ; rdfs:domain :Observation ; rdfs:range :Deployment .
+:Observation_target a owl:ObjectProperty ; rdfs:domain :Observation ; rdfs:range :Target .
+:Observation_instant a owl:DatatypeProperty ; rdfs:domain :Observation ; rdfs:range xsd:dateTime .
+:Observation_property a owl:DatatypeProperty ; rdfs:domain :Observation ; rdfs:range xsd:string .
+:Observation_result a owl:DatatypeProperty ; rdfs:domain :Observation ; rdfs:range xsd:string .
+:Observation_evidence a owl:DatatypeProperty ; rdfs:domain :Observation ; rdfs:range xsd:string .
+:Identity a owl:Class ; rdfs:label "身份判定"@zh .
+:Identity_observation a owl:ObjectProperty ; rdfs:domain :Identity ; rdfs:range :Observation .
+:Identity_segment a owl:ObjectProperty ; rdfs:domain :Identity ; rdfs:range :Segment .
+:Identity_status a owl:DatatypeProperty ; rdfs:domain :Identity ; rdfs:range xsd:string .
+:Identity_basis a owl:DatatypeProperty ; rdfs:domain :Identity ; rdfs:range xsd:string .
+:Finding a owl:Class ; rdfs:label "状态判读"@zh .
+:Finding_identity a owl:ObjectProperty ; rdfs:domain :Finding ; rdfs:range :Identity .
+:Finding_phenomenon a owl:DatatypeProperty ; rdfs:domain :Finding ; rdfs:range xsd:string .
+:Finding_status a owl:DatatypeProperty ; rdfs:domain :Finding ; rdfs:range xsd:string .
+:Finding_basis a owl:DatatypeProperty ; rdfs:domain :Finding ; rdfs:range xsd:string .
+:Measurement a owl:Class ; rdfs:label "定量测量"@zh .
+:Measurement_observation a owl:ObjectProperty ; rdfs:domain :Measurement ; rdfs:range :Observation .
+:Measurement_quantity a owl:DatatypeProperty ; rdfs:domain :Measurement ; rdfs:range xsd:string .
+:Measurement_value a owl:DatatypeProperty ; rdfs:domain :Measurement ; rdfs:range xsd:decimal .
+:Measurement_unit a owl:DatatypeProperty ; rdfs:domain :Measurement ; rdfs:range xsd:string .
+:Measurement_reference a owl:DatatypeProperty ; rdfs:domain :Measurement ; rdfs:range xsd:string .
+:Platform rdfs:subClassOf sosa:Platform .
+:Sensor rdfs:subClassOf sosa:Sensor .
+:Observation rdfs:subClassOf sosa:Observation .
+:Observation_target rdfs:subPropertyOf sosa:hasFeatureOfInterest .
+:Observation_result rdfs:subPropertyOf sosa:hasSimpleResult .
+:Area rdfs:subClassOf geo:Feature .
+:Route rdfs:subClassOf geo:Feature .

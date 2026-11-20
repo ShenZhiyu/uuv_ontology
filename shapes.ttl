@@ -1,0 +1,27 @@
+@prefix : <https://example.org/uuv/v01/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+
+:AreaShape a sh:NodeShape ; sh:targetClass :Area ; sh:property [ sh:path :Area_geometry ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype geo:wktLiteral ] .
+:AssetShape a sh:NodeShape ; sh:targetClass :Asset ; sh:property [ sh:path :Asset_kind ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] .
+:RouteShape a sh:NodeShape ; sh:targetClass :Route ; sh:property [ sh:path :Route_asset ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Asset ] ; sh:property [ sh:path :Route_version ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ; sh:property [ sh:path :Route_geometry ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype geo:wktLiteral ] .
+:SegmentShape a sh:NodeShape ; sh:targetClass :Segment ; sh:property [ sh:path :Segment_route ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Route ] ; sh:property [ sh:path :Segment_area ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Area ] ; sh:property [ sh:path :Segment_startM ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:decimal ; sh:lessThan :Segment_endM ] ; sh:property [ sh:path :Segment_endM ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:decimal ] .
+:SurveyShape a sh:NodeShape ; sh:targetClass :Survey ; sh:property [ sh:path :Survey_area ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Area ] ; sh:property [ sh:path :Survey_day ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] .
+:PlatformShape a sh:NodeShape ; sh:targetClass :Platform ; sh:property [ sh:path :Platform_label ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] .
+:SensorShape a sh:NodeShape ; sh:targetClass :Sensor ; sh:property [ sh:path :Sensor_kind ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] .
+:DeploymentShape a sh:NodeShape ; sh:targetClass :Deployment ; sh:property [ sh:path :Deployment_survey ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Survey ] ; sh:property [ sh:path :Deployment_platform ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Platform ] ; sh:property [ sh:path :Deployment_sensor ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Sensor ] .
+:CoverageShape a sh:NodeShape ; sh:targetClass :Coverage ; sh:property [ sh:path :Coverage_survey ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Survey ] ; sh:property [ sh:path :Coverage_segment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Segment ] ; sh:property [ sh:path :Coverage_status ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] .
+:TargetShape a sh:NodeShape ; sh:targetClass :Target ; sh:property [ sh:path :Target_label ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] .
+:ObservationShape a sh:NodeShape ; sh:targetClass :Observation ; sh:property [ sh:path :Observation_deployment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Deployment ] ; sh:property [ sh:path :Observation_target ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Target ] ; sh:property [ sh:path :Observation_instant ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ; sh:property [ sh:path :Observation_property ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ; sh:property [ sh:path :Observation_result ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ; sh:property [ sh:path :Observation_evidence ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] .
+:IdentityShape a sh:NodeShape ; sh:targetClass :Identity ; sh:property [ sh:path :Identity_observation ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Observation ] ; sh:property [ sh:path :Identity_segment ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Segment ] ; sh:property [ sh:path :Identity_status ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ; sh:property [ sh:path :Identity_basis ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] .
+:FindingShape a sh:NodeShape ; sh:targetClass :Finding ; sh:property [ sh:path :Finding_identity ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Identity ] ; sh:property [ sh:path :Finding_phenomenon ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ; sh:property [ sh:path :Finding_status ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ; sh:property [ sh:path :Finding_basis ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] .
+:MeasurementShape a sh:NodeShape ; sh:targetClass :Measurement ; sh:property [ sh:path :Measurement_observation ; sh:minCount 1 ; sh:maxCount 1 ; sh:class :Observation ] ; sh:property [ sh:path :Measurement_quantity ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ; sh:property [ sh:path :Measurement_value ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:decimal ] ; sh:property [ sh:path :Measurement_unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ; sh:property [ sh:path :Measurement_reference ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] .
+:ConfirmedShape a sh:NodeShape ; sh:targetClass :Finding ;
+ sh:or ( [ sh:not [ sh:property [ sh:path :Finding_status ; sh:hasValue "确认" ] ] ]
+ [ sh:property [ sh:path ( :Finding_identity :Identity_status ) ; sh:hasValue "确认" ] ;
+ sh:property [ sh:path ( :Finding_identity :Identity_observation :Observation_evidence ) ; sh:minCount 1 ; sh:minLength 1 ] ;
+ sh:property [ sh:path :Finding_basis ; sh:minLength 1 ] ] ) .
